@@ -133,7 +133,7 @@ public class RequestValidatorTest {
   }
 
   @Test
-  // Right now this test is a little flaky, there is a small chance that this will throw a false positive, due to the 'randomness' of how the pathPatterns are formed
+  // if Map<Pattern, Path> patterns in RequestValidator.buildPathPatterns() is initialized as a map that doesn't retain order of elements then this test can produce unreliable results
   // Multiple resources on /greeting/{id} in yaml should reduce the chance
   public void withPathCollision() throws Exception {
     URL specPath = RequestValidatorTest.class.getResource("/request/pathCollision.yaml");
