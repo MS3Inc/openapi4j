@@ -11,7 +11,7 @@ allprojects {
   apply plugin: 'jacoco'
 
   group = "org.openapi4j"
-  version = "MS3-1.0.7" + (Boolean.valueOf(System.getenv("RELEASE")) ? "" : "-SNAPSHOT")
+  version = "MS3-1.0.8" + (Boolean.valueOf(System.getenv("RELEASE")) ? "" : "-SNAPSHOT")
 
   java {
     sourceCompatibility = JavaVersion.VERSION_1_8
