@@ -11,7 +11,7 @@ allprojects {
   apply plugin: 'jacoco'
 
   group = "org.openapi4j"
-  version = "1.0.7" + (Boolean.valueOf(System.getProperty("release")) ? "" : "-SNAPSHOT")
+  version = "MS3-1.0.8" + (Boolean.valueOf(System.getenv("RELEASE")) ? "" : "-SNAPSHOT")
 
   java {
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -45,27 +45,27 @@ allprojects {
 // Only report code coverage for published projects
 def publishedProjects = subprojects.findAll { it.path != ':openapi-perf-checker' }
 
-task jacocoMerge(type: JacocoMerge) {
-  publishedProjects.each { subproject ->
-    executionData subproject.tasks.withType(Test)
+tasks.register("jacocoMerge", JacocoReport) {
+  dependsOn {
+    publishedProjects.collect { it.tasks.withType(Test) }
   }
   doFirst {
-    executionData = files(executionData.findAll { it.exists() })
+    executionData = files(executionData.files.findAll { it.exists() })
   }
 }
 
-task codeCoverageReport(type: JacocoReport) {
-  dependsOn publishedProjects.test, jacocoMerge
+tasks.register("codeCoverageReport", JacocoReport) {
+  dependsOn(publishedProjects.collect { it.tasks.named("test") }, "jacocoMerge")
 
-  additionalSourceDirs.from = files(publishedProjects.sourceSets.main.allSource.srcDirs)
-  sourceDirectories.from = files(publishedProjects.sourceSets.main.allSource.srcDirs)
-  classDirectories.from = files(publishedProjects.sourceSets.main.output)
-  executionData jacocoMerge.destinationFile
+  additionalSourceDirs.from(publishedProjects.sourceSets.main.allSource.srcDirs)
+  sourceDirectories.from(publishedProjects.sourceSets.main.allSource.srcDirs)
+  classDirectories.from(publishedProjects.sourceSets.main.output)
+  executionData(jacocoMerge.get().destinationFile)
 
   reports {
-    xml.enabled true
-    html.enabled true
-    csv.enabled false
+    xml.enabled(true)
+    html.enabled(true)
+    csv.enabled(false)
   }
 }
 

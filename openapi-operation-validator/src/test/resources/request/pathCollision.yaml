@@ -1,0 +1,337 @@
+openapi: 3.0.0
+info:
+  title: hello-api
+  version: '1.0'
+paths:
+  /greeting/{id}:
+    patch:
+      operationId: patchGreetingById
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - caller
+              properties:
+                caller:
+                  type: string
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+  /greeting/{id}/a:
+    patch:
+      operationId: patchGreetingByIdAndA
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - caller
+              properties:
+                caller:
+                  type: string
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+  /greeting/{id}/b:
+    patch:
+      operationId: patchGreetingByIdAndB
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - caller
+              properties:
+                caller:
+                  type: string
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+  /greeting/spanish:
+    get:
+      operationId: greetingBySpanishResource
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+  /greeting/{id}/c:
+    patch:
+      operationId: patchGreetingByIdAndC
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - caller
+              properties:
+                caller:
+                  type: string
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+  /greeting/{id}/d:
+    patch:
+      operationId: patchGreetingByIdAndD
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - caller
+              properties:
+                caller:
+                  type: string
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+  /greeting/{id}/e:
+    patch:
+      operationId: patchGreetingByIdAndE
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - caller
+              properties:
+                caller:
+                  type: string
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+  /greeting/{id}/f:
+    patch:
+      operationId: patchGreetingByIdAndF
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - caller
+              properties:
+                caller:
+                  type: string
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+  /greeting/{id}/g:
+    patch:
+      operationId: patchGreetingByIdAndG
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - caller
+              properties:
+                caller:
+                  type: string
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+  /greeting/{id}/h:
+    patch:
+      operationId: patchGreetingByIdAndH
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - caller
+              properties:
+                caller:
+                  type: string
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+  /greeting/{id}/i:
+    patch:
+      operationId: patchGreetingByIdAndI
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - caller
+              properties:
+                caller:
+                  type: string
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string
+  /greeting/{id}/j:
+    patch:
+      operationId: patchGreetingByIdAndJ
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - caller
+              properties:
+                caller:
+                  type: string
+      responses:
+        200:
+          description: greeting response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    type: string

@@ -133,6 +133,22 @@ public class RequestValidatorTest {
   }
 
   @Test
+  // if Map<Pattern, Path> patterns in RequestValidator.buildPathPatterns() is initialized as a map that doesn't retain order of elements then this test can produce unreliable results
+  // Multiple resources on /greeting/{id} in yaml should reduce the chance
+  public void withPathCollision() throws Exception {
+    URL specPath = RequestValidatorTest.class.getResource("/request/pathCollision.yaml");
+    OpenApi3 api = new OpenApi3Parser().parse(specPath, false);
+    RequestValidator requestValidator = new RequestValidator(api);
+
+    checkRequest(
+      api,
+      "greetingBySpanishResource",
+      requestValidator,
+      new DefaultRequest.Builder("https://api.com/greeting/spanish", GET).build(),
+      true);
+  }
+
+  @Test
   public void responseTest() throws Exception {
     URL specPath = RequestValidatorTest.class.getResource("/request/requestValidator-with-servers.yaml");
     OpenApi3 api = new OpenApi3Parser().parse(specPath, false);

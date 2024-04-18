@@ -13,10 +13,7 @@ import org.openapi4j.parser.model.v3.Path;
 import org.openapi4j.schema.validator.ValidationContext;
 import org.openapi4j.schema.validator.ValidationData;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
@@ -316,9 +313,32 @@ public class RequestValidator {
   }
 
   private Map<Pattern, Path> buildPathPatterns() {
-    Map<Pattern, Path> patterns = new HashMap<>();
+    Map<Pattern, Path> patterns = new LinkedHashMap<>();
 
-    for (Map.Entry<String, Path> pathEntry : openApi.getPaths().entrySet()) {
+    Map<String, Path> originalPaths = openApi.getPaths();
+    List<Map.Entry<String, Path> > originalPathsAsList = new LinkedList<>(originalPaths.entrySet());
+
+    Comparator<Map.Entry<String, Path>> pathComparator = (entry1, entry2) -> {
+      boolean key1ContainsCurlyBrace = entry1.getKey().contains("{");
+      boolean key2ContainsCurlyBrace = entry2.getKey().contains("{");
+
+      if (!key1ContainsCurlyBrace && key2ContainsCurlyBrace) {
+        return -1;
+      } else if (key1ContainsCurlyBrace && !key2ContainsCurlyBrace) {
+        return 1;
+      } else {
+        return 0;
+      }
+    };
+
+    Collections.sort(originalPathsAsList, pathComparator);
+
+    HashMap<String, Path> sortedPaths = new LinkedHashMap<>();
+    for (Map.Entry<String, Path> entry : originalPathsAsList) {
+      sortedPaths.put(entry.getKey(), entry.getValue());
+    }
+
+    for (Map.Entry<String, Path> pathEntry : sortedPaths.entrySet()) {
       List<Pattern> builtPathPatterns = PathResolver.instance().buildPathPatterns(
         openApi.getContext(),
         openApi.getServers(),
