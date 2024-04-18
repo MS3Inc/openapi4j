@@ -315,11 +315,10 @@ public class RequestValidator {
   private Map<Pattern, Path> buildPathPatterns() {
     Map<Pattern, Path> patterns = new LinkedHashMap<>();
 
-    Map<String, Path> paths = openApi.getPaths();
+    Map<String, Path> originalPaths = openApi.getPaths();
+    List<Map.Entry<String, Path> > originalPathsAsList = new LinkedList<>(originalPaths.entrySet());
 
-    List<Map.Entry<String, Path> > list = new LinkedList<>(paths.entrySet());
-
-    Comparator<Map.Entry<String, Path>> comparator = (entry1, entry2) -> {
+    Comparator<Map.Entry<String, Path>> pathComparator = (entry1, entry2) -> {
       boolean key1ContainsCurlyBrace = entry1.getKey().contains("{");
       boolean key2ContainsCurlyBrace = entry2.getKey().contains("{");
 
@@ -332,10 +331,10 @@ public class RequestValidator {
       }
     };
 
-    Collections.sort(list, comparator);
+    Collections.sort(originalPathsAsList, pathComparator);
 
     HashMap<String, Path> sortedPaths = new LinkedHashMap<>();
-    for (Map.Entry<String, Path> entry : list) {
+    for (Map.Entry<String, Path> entry : originalPathsAsList) {
       sortedPaths.put(entry.getKey(), entry.getValue());
     }
 
